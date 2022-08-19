@@ -1,0 +1,29 @@
+select * from HumanResources.Department;
+select * from Sales.SalesOrderHeader;
+select 
+      CustomerID,
+	  SalesOrderID,
+	  OrderDate,
+	  TotalDue,
+	  sum(TotalDue) over(order By SalesOrderID) RunningTotal
+from Sales.SalesOrderHeader
+order by SalesOrderID;
+
+select 
+      PurchaseOrderID,
+	  PurchaseOrderDetailID,
+	  ProductID,
+	  LineTotal,
+	  sum(LineTotal) over(order by PurchaseOrderID) TotalDue
+from Purchasing.PurchaseOrderDetail
+order by PurchaseOrderID;
+
+select 
+      PurchaseOrderID,
+	  PurchaseOrderDetailID,
+	  ProductID,
+	  LineTotal,
+	  sum(LineTotal) over(order by PurchaseOrderID rows unbounded Preceding ) TotalDue
+from Purchasing.PurchaseOrderDetail
+order by PurchaseOrderID;
+   
